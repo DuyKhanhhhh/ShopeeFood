@@ -16,7 +16,6 @@ public class Shop {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String address;
     private String phoneNumber;
     private String email;
     private String image;
@@ -53,14 +52,6 @@ public class Shop {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getPhoneNumber() {
@@ -146,10 +137,9 @@ public class Shop {
     public Shop() {
     }
 
-    public Shop(Long id, String name, String address, String phoneNumber, String email, String image, Time timeStart, Time timeEnd, City idCity, Category idCategory, User idUser, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Shop(Long id, String name, String phoneNumber, String email, String image, Time timeStart, Time timeEnd, City idCity, Category idCategory, User idUser) {
         this.id = id;
         this.name = name;
-        this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.image = image;
@@ -158,7 +148,17 @@ public class Shop {
         this.idCity = idCity;
         this.idCategory = idCategory;
         this.idUser = idUser;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+    }
+
+    public Shop(String name, String phoneNumber, String email, String image, Time timeStart, Time timeEnd, City idCity, Category idCategory, User idUser) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.image = image;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.idCity = idCity;
+        this.idCategory = idCategory;
+        this.idUser = idUser;
     }
 }
