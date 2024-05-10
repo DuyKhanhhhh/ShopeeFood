@@ -7,6 +7,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,9 +22,11 @@ public class Product {
     private int quantity;
     private String image;
     private String detail;
-    @ManyToMany(mappedBy = "products")
-    @JsonBackReference
-    private Set<Menu> menus;
+    @ManyToMany
+    @JoinTable(name="Seat_code",
+            joinColumns=@JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "menu_id"))
+    private Set<Menu> menus = new HashSet<>();
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

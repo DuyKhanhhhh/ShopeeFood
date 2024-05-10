@@ -1,5 +1,6 @@
 package com.example.shopeefood.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -17,11 +18,8 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="Seat_code",
-            joinColumns=@JoinColumn(name = "menu_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    @JsonManagedReference
+    @ManyToMany(mappedBy = "menus")
+    @JsonIgnore
     private Set<Product> products;
     @JoinColumn(name = "shop_id")
     @ManyToOne

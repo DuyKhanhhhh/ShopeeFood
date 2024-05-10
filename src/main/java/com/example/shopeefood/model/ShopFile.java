@@ -19,8 +19,8 @@ public class ShopFile {
     private String phoneNumber;
     private String email;
     private MultipartFile image;
-    private Time timeStart;
-    private Time timeEnd;
+    private String timeStart;
+    private String timeEnd;
     private long idCity;
     private long idCategory;
     private long idUser;
@@ -28,7 +28,7 @@ public class ShopFile {
     public ShopFile() {
     }
 
-    public ShopFile(String name, String phoneNumber, String email, MultipartFile image, Time timeStart, Time timeEnd, long idCity, long idCategory, long idUser) {
+    public ShopFile(String name, String phoneNumber, String email, MultipartFile image, String timeStart, String timeEnd, long idCity, long idCategory, long idUser) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;

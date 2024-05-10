@@ -19,8 +19,8 @@ public class Shop {
     private String phoneNumber;
     private String email;
     private String image;
-    private Time timeStart;
-    private Time timeEnd;
+    private String timeStart;
+    private String timeEnd;
     @JoinColumn(name = "city_id")
     @ManyToOne
     private City idCity;
@@ -78,19 +78,19 @@ public class Shop {
         this.image = image;
     }
 
-    public Time getTimeStart() {
+    public String getTimeStart() {
         return timeStart;
     }
 
-    public void setTimeStart(Time timeStart) {
+    public void setTimeStart(String timeStart) {
         this.timeStart = timeStart;
     }
 
-    public Time getTimeEnd() {
+    public String getTimeEnd() {
         return timeEnd;
     }
 
-    public void setTimeEnd(Time timeEnd) {
+    public void setTimeEnd(String timeEnd) {
         this.timeEnd = timeEnd;
     }
 
@@ -137,20 +137,8 @@ public class Shop {
     public Shop() {
     }
 
-    public Shop(Long id, String name, String phoneNumber, String email, String image, Time timeStart, Time timeEnd, City idCity, Category idCategory, User idUser) {
-        this.id = id;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.image = image;
-        this.timeStart = timeStart;
-        this.timeEnd = timeEnd;
-        this.idCity = idCity;
-        this.idCategory = idCategory;
-        this.idUser = idUser;
-    }
 
-    public Shop(String name, String phoneNumber, String email, String image, Time timeStart, Time timeEnd, City idCity, Category idCategory, User idUser) {
+    public Shop(String name, String phoneNumber, String email, String image, String timeStart, String timeEnd, City idCity, Category idCategory, User idUser) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
