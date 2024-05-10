@@ -23,20 +23,16 @@ return iProductRepository.save(product);
     }
 
     @Override
-    public void remote(Product product) {
-
+    public void remove(Long id) {
+        iProductRepository.deleteById(id);
     }
 
-    @Override
-    public Product delete(Long id) {
-        return null;
-    }
 
     @Override
     public Optional<Product> findById(Long id) {
 
         return iProductRepository.findById(id);
-
+    }
     @Override
     public Page<Product> findAllByName(Pageable pageable,String name) {
         return iProductRepository.findAllByNameContaining(pageable,name);
