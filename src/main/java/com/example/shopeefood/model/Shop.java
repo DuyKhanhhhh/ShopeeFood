@@ -16,12 +16,11 @@ public class Shop {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String address;
     private String phoneNumber;
     private String email;
     private String image;
-    private Time timeStart;
-    private Time timeEnd;
+    private String timeStart;
+    private String timeEnd;
     @JoinColumn(name = "city_id")
     @ManyToOne
     private City idCity;
@@ -55,14 +54,6 @@ public class Shop {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -87,19 +78,20 @@ public class Shop {
         this.image = image;
     }
 
-    public Time getTimeStart() {
+
+    public String getTimeStart() {
         return timeStart;
     }
 
-    public void setTimeStart(Time timeStart) {
+    public void setTimeStart(String timeStart) {
         this.timeStart = timeStart;
     }
 
-    public Time getTimeEnd() {
+    public String getTimeEnd() {
         return timeEnd;
     }
 
-    public void setTimeEnd(Time timeEnd) {
+    public void setTimeEnd(String timeEnd) {
         this.timeEnd = timeEnd;
     }
 
@@ -146,10 +138,10 @@ public class Shop {
     public Shop() {
     }
 
-    public Shop(Long id, String name, String address, String phoneNumber, String email, String image, Time timeStart, Time timeEnd, City idCity, Category idCategory, User idUser, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
+
+
+    public Shop(String name, String phoneNumber, String email, String image, String timeStart, String timeEnd, City idCity, Category idCategory, User idUser) {
         this.name = name;
-        this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.image = image;
@@ -162,3 +154,4 @@ public class Shop {
         this.updatedAt = updatedAt;
     }
 }
+

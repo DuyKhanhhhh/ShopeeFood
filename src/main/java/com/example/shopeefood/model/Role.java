@@ -1,9 +1,5 @@
 package com.example.shopeefood.model;
 
-
-import jakarta.persistence.*;
-
-
 @Entity
 @Table(name = "role")
 public class Role {
@@ -35,5 +31,5 @@ public class Role {
     public void setType(String type) {
         this.type = type;
     }
-
 }
+

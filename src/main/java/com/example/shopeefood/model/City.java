@@ -1,10 +1,6 @@
 package com.example.shopeefood.model;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "city")
@@ -38,3 +34,4 @@ public class City {
         this.name = name;
     }
 }
+

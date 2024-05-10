@@ -1,7 +1,10 @@
 package com.example.shopeefood.service;
 
 import com.example.shopeefood.model.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;aster
 
-public interface IProductService extends IG<Product>{
 
+public interface IProductService extends IGenerateService<Product>{
+    Page<Product> findAllByName(Pageable pageable,String name);
 }
