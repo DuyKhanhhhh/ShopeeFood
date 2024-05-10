@@ -78,6 +78,7 @@ public class Shop {
         this.image = image;
     }
 
+
     public String getTimeStart() {
         return timeStart;
     }
@@ -138,6 +139,7 @@ public class Shop {
     }
 
 
+
     public Shop(String name, String phoneNumber, String email, String image, String timeStart, String timeEnd, City idCity, Category idCategory, User idUser) {
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -148,5 +150,8 @@ public class Shop {
         this.idCity = idCity;
         this.idCategory = idCategory;
         this.idUser = idUser;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 }
+

@@ -1,34 +1,28 @@
 package com.example.shopeefood.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "product")
-@EntityListeners(AuditingEntityListener.class)
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ProductFile {
+
     private long id;
     private String name;
     private double price;
     private int quantity;
-    private String image;
+    private MultipartFile image;
     private String detail;
     @ManyToMany
     @JoinTable(name="Seat_code",
             joinColumns=@JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "menu_id"))
     private Set<Menu> menus = new HashSet<>();
+
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -69,13 +63,7 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public String getImage() {
-        return image;
-    }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
 
     public String getDetail() {
         return detail;
@@ -109,10 +97,18 @@ public class Product {
         this.updatedAt = updatedAt;
     }
 
-    public Product() {
+    public ProductFile() {
     }
 
-    public Product(long id, String name, double price, int quantity, String image, String detail, Set<Menu> menus, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public MultipartFile getImage() {
+        return image;
+    }
+
+    public void setImage(MultipartFile image) {
+        this.image = image;
+    }
+
+    public ProductFile(long id, String name, double price, int quantity, MultipartFile image, String detail, Set<Menu> menus, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -124,4 +120,3 @@ public class Product {
         this.updatedAt = updatedAt;
     }
 }
-

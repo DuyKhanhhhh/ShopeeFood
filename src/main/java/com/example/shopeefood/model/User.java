@@ -1,11 +1,6 @@
 package com.example.shopeefood.model;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -89,8 +84,6 @@ public class User {
         this.idRole = idRole;
     }
 
-
-
     public User(long id, String name, String email, String password, String phoneNumber, String image, boolean status, Role idRole) {
         this.id = id;
         this.name = name;
@@ -105,3 +98,4 @@ public class User {
     public User() {
     }
 }
+
