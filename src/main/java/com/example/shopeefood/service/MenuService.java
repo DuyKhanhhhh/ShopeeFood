@@ -23,14 +23,10 @@ public class MenuService implements IMenuService{
     }
 
     @Override
-    public void remote(Menu menu) {
-
+    public void remove(Long id) {
+        iMenuRepository.deleteById(id);
     }
 
-    @Override
-    public Menu delete(Long id) {
-        return null;
-    }
 
     @Override
     public Optional<Menu>  findById(Long id) {
