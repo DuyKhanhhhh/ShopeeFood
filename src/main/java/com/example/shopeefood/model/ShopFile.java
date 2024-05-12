@@ -4,22 +4,20 @@ import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Time;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "shop")
 
-public class Shop {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@EntityListeners(AuditingEntityListener.class)
+public class ShopFile {
     private Long id;
     private String name;
     private String address;
     private String phoneNumber;
     private String email;
-    private String image;
+    private MultipartFile image;
     private String timeStart;
     private String timeEnd;
     @JoinColumn(name = "city_id")
@@ -79,13 +77,7 @@ public class Shop {
         this.email = email;
     }
 
-    public String getImage() {
-        return image;
-    }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
 
     public String getTimeStart() {
         return timeStart;
@@ -143,10 +135,18 @@ public class Shop {
         this.updatedAt = updatedAt;
     }
 
-    public Shop() {
+    public MultipartFile getImage() {
+        return image;
     }
 
-    public Shop(Long id, String name, String address, String phoneNumber, String email, String image, String timeStart, String timeEnd, City idCity, Category idCategory, User idUser, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public void setImage(MultipartFile image) {
+        this.image = image;
+    }
+
+    public ShopFile() {
+    }
+
+    public ShopFile(Long id, String name, String address, String phoneNumber, String email, MultipartFile image, String timeStart, String timeEnd, City idCity, Category idCategory, User idUser, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.address = address;

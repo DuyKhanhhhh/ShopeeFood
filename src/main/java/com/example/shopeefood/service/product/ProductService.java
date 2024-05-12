@@ -1,4 +1,4 @@
-package com.example.shopeefood.service;
+package com.example.shopeefood.service.product;
 
 import com.example.shopeefood.model.Product;
 import com.example.shopeefood.repository.IProductRepository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class ProductService implements IProductService{
+public class ProductService implements IProductService {
     @Autowired
     private IProductRepository iProductRepository;
     @Override
@@ -22,14 +22,11 @@ return iProductRepository.save(product);
     }
 
     @Override
-    public void remote(Product product) {
+    public void remove(Long id) {
 
     }
 
-    @Override
-    public Product delete(Long id) {
-        return null;
-    }
+
 
     @Override
     public Optional<Product> findById(Long id) {
