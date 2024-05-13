@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -42,9 +43,19 @@ public class ShopController {
     public ResponseEntity<String> handleException(Exception e){
         return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Shop> findById(@PathVariable Long id) {
+        Optional<Shop> shopOptional = iShopService.findById(id);
+        if (shopOptional.isPresent()) {
+            Shop shop = shopOptional.get();
+            return new ResponseEntity<>(shop, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     @PostMapping()
-    public ResponseEntity<Shop> createShop(@ModelAttribute ShopFile shopFile)  {
+    public ResponseEntity<Shop> createShop(@ModelAttribute ShopFile shopFile)  throws IOException {
          multipartFile = shopFile.getImage();
         String fileName = multipartFile.getOriginalFilename();
         try {
@@ -70,10 +81,10 @@ public class ShopController {
         );
         return new ResponseEntity<>(iShopService.save(shop), HttpStatus.CREATED);
     }
-    @PutMapping()
-    public ResponseEntity<Shop> updateShop(@ModelAttribute ShopFile shopFile)  {
+    @PutMapping("/{id}")
+    public ResponseEntity<Shop> updateShop(@PathVariable Long id, @ModelAttribute ShopFile shopFile)  throws IOException {
         multipartFile = shopFile.getImage();
-       Shop shop = iShopService.findById(shopFile.getId()).get();
+       Shop shop = iShopService.findById(id).get();
         String fileName = multipartFile.getOriginalFilename();
         Shop originalMovie = iShopService.findById(shopFile.getId()).get();
         LocalDateTime localDateTime = LocalDateTime.now();
@@ -91,7 +102,7 @@ public class ShopController {
                     shopFile.getTimeEnd(),
                     shopFile.getIdCity(),
                     shopFile.getIdCategory(),
-                    shopFile.getIdUser(),
+                    shop.getIdUser(),
                     shop.getCreatedAt(),
                     localDateTime
             );
