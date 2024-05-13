@@ -2,9 +2,6 @@ package com.example.shopeefood.model;
 
 import jakarta.persistence.*;
 
-
-import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "category")
 public class Category {

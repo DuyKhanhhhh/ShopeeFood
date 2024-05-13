@@ -1,11 +1,6 @@
 package com.example.shopeefood.model;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "role")
@@ -38,5 +33,5 @@ public class Role {
     public void setType(String type) {
         this.type = type;
     }
-
 }
+

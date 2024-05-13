@@ -1,11 +1,7 @@
 package com.example.shopeefood.model;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -24,13 +20,6 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role idRole;
 
-    @CreatedDate
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
 
     public long getId() {
         return id;
@@ -96,23 +85,7 @@ public class User {
         this.idRole = idRole;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public User(long id, String name, String email, String password, String phoneNumber, String image, boolean status, Role idRole, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public User(long id, String name, String email, String password, String phoneNumber, String image, boolean status, Role idRole) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -121,10 +94,9 @@ public class User {
         this.image = image;
         this.status = status;
         this.idRole = idRole;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 
     public User() {
     }
 }
+
