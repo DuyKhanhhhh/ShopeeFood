@@ -35,13 +35,23 @@ public class ShopController {
     private ICityService iCityService;
     @Autowired
     private ICategoryService iCategoryService;
-    @Value("E:/java/ShopeeFood/src/main/resources/static/img/")
+//    @Value("E:/java/ShopeeFood/src/main/resources/static/img/")
+    @Value("C:\\Users\\acer\\Desktop\\ShopeeFoodTemplate\\public\\img\\")
     private String fileUpload;
     public MultipartFile multipartFile;
 
     @ExceptionHandler({Exception.class})
     public ResponseEntity<String> handleException(Exception e){
         return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @GetMapping
+    public ResponseEntity<List<Shop>> getAllShops(){
+        List<Shop> shops = (List<Shop>) iShopService.findAll();
+        if (shops.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }else {
+            return new ResponseEntity<>(shops, HttpStatus.OK);
+        }
     }
     @GetMapping("/{id}")
     public ResponseEntity<Shop> findById(@PathVariable Long id) {
@@ -70,7 +80,7 @@ public class ShopController {
                 shopFile.getAddress(),
                 shopFile.getPhoneNumber(),
                 shopFile.getEmail(),
-                "/img" + fileName,
+                fileName,
                 shopFile.getTimeStart(),
                 shopFile.getTimeEnd(),
                 shopFile.getIdCity(),
@@ -85,6 +95,7 @@ public class ShopController {
     public ResponseEntity<Shop> updateShop(@PathVariable Long id, @ModelAttribute ShopFile shopFile)  throws IOException {
         multipartFile = shopFile.getImage();
        Shop shop = iShopService.findById(id).get();
+
         String fileName = multipartFile.getOriginalFilename();
         Shop originalMovie = iShopService.findById(shopFile.getId()).get();
         LocalDateTime localDateTime = LocalDateTime.now();
@@ -121,7 +132,7 @@ public class ShopController {
                     shopFile.getAddress(),
                     shopFile.getPhoneNumber(),
                     shopFile.getEmail(),
-                    "/img" + fileName,
+                     fileName,
                     shopFile.getTimeStart(),
                     shopFile.getTimeEnd(),
                     shopFile.getIdCity(),

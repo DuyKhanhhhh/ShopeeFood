@@ -3,6 +3,7 @@ package com.example.shopeefood.controller;
 import com.example.shopeefood.model.Menu;
 import com.example.shopeefood.model.Product;
 import com.example.shopeefood.model.ProductFile;
+import com.example.shopeefood.repository.IProductRepository;
 import com.example.shopeefood.service.menu.IMenuService;
 import com.example.shopeefood.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +18,31 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-    @Value("E:/java/ShopeeFood/src/main/resources/static/img/")
+    @Value("C:\\Users\\acer\\Desktop\\ShopeeFoodTemplate\\public\\img\\")
     private String fileUpload;
     @Autowired
     private IProductService iProductService;
     @Autowired
     private IMenuService iMenuService;
-
+    @Autowired
+    IProductRepository productRepository;
+    @GetMapping("/ProductListByMenuId/{id}")
+    public ResponseEntity<List<Product>> getListProduct(@PathVariable Long id) {
+        List<Product> list=productRepository.findFoodByMenuId(id);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    @GetMapping("/FindByPByName/{id}")
+    public ResponseEntity<List<Product>> findByPName(@PathVariable Long id,@RequestParam("productName") String productName) {
+        List<Product>list=productRepository.findFoodByMenuIdAndName(id, productName);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 
     @PostMapping()
     public ResponseEntity<Product> saveProduct(@ModelAttribute ProductFile productFile) throws IOException {
@@ -47,7 +60,7 @@ public class ProductController {
                 productFile.getName(),
                 productFile.getPrice(),
                 productFile.getQuantity(),
-                "/img"+fileName,
+                fileName,
                 productFile.getDetail(),
                 productFile.getMenus(),
                 localDateTime,
