@@ -25,7 +25,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-    @Value("C:\\Users\\acer\\Desktop\\ShopeeFoodTemplate\\public\\img\\")
+    @Value("C:\\Users\\acer\\Desktop\\")
     private String fileUpload;
     @Autowired
     private IProductService iProductService;
@@ -45,14 +45,13 @@ public class ProductController {
     }
 
     @PostMapping()
-    public ResponseEntity<Product> saveProduct(@ModelAttribute ProductFile productFile) throws IOException {
+    public ResponseEntity<Product> saveProduct(@ModelAttribute ProductFile productFile) {
+        try {
+
         MultipartFile multipartFile = productFile.getImage();
         String fileName = multipartFile.getOriginalFilename();
-        try {
-            FileCopyUtils.copy(productFile.getImage().getBytes(), new File(fileUpload + fileName));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        FileCopyUtils.copy(productFile.getImage().getBytes(), new File(fileUpload + fileName));
+
         LocalDateTime localDateTime = LocalDateTime.now();
 
         Product product = new Product(
@@ -68,10 +67,14 @@ public class ProductController {
         Optional<Menu> menu = iMenuService.findById(product.getMenus().stream().count());
             product = iProductService.save(product);
             Set<Menu> menuSet = new HashSet<>();
-            menuSet.add(menu.get());
+//            menuSet.add(menu.get());
             product.setMenus(menuSet);
-            return new ResponseEntity<>(product, HttpStatus.CREATED) ;
+        return new ResponseEntity<>(product, HttpStatus.CREATED);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.CREATED) ;
 
+        }
 
     }
 
