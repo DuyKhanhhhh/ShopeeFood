@@ -3,11 +3,13 @@ package com.example.shopeefood.controller;
 import com.example.shopeefood.model.Menu;
 import com.example.shopeefood.model.Product;
 import com.example.shopeefood.model.ProductFile;
+
 import com.example.shopeefood.repository.IProductRepository;
 import com.example.shopeefood.service.menu.IMenuService;
 import com.example.shopeefood.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
@@ -15,24 +17,27 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
+
 import java.util.Optional;
 import java.util.Set;
 
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
+
     @Value("C:\\Users\\acer\\Desktop\\")
+
     private String fileUpload;
     @Autowired
     private IProductService iProductService;
     @Autowired
     private IMenuService iMenuService;
+
     @Autowired
-    IProductRepository productRepository;
+    private IProductRepository productRepository;
     @GetMapping("/ProductListByMenuId/{id}")
     public ResponseEntity<List<Product>> getListProduct(@PathVariable Long id) {
         List<Product> list=productRepository.findFoodByMenuId(id);
@@ -79,3 +84,5 @@ public class ProductController {
     }
 
 }
+
+
