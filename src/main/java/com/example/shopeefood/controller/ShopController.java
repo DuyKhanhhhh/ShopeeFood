@@ -35,7 +35,7 @@ public class ShopController {
     private ICategoryService iCategoryService;
 
 //    @Value("E:/java/ShopeeFood/src/main/resources/static/img/")
-    @Value("C:\\Users\\acer\\Desktop\\ShopeeFoodTemplate\\public\\img\\")
+    @Value("/home/nguyenhuugiang19072004/IdeaProjects/ShopeeFood/src/main/resources/static/img/")
     private String fileUpload;
     public MultipartFile multipartFile;
 
@@ -144,8 +144,6 @@ public class ShopController {
             );
             return new ResponseEntity<>(iShopService.save(shop), HttpStatus.CREATED);
         }
-
-
     }
 
 }

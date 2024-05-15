@@ -28,7 +28,7 @@ import java.util.Set;
 @RequestMapping("/api/products")
 public class ProductController {
 
-    @Value("C:\\Users\\acer\\Desktop\\")
+    @Value("/home/nguyenhuugiang19072004/IdeaProjects/ShopeeFood/src/main/resources/static/img")
 
     private String fileUpload;
     @Autowired
