@@ -28,7 +28,7 @@ import java.util.Set;
 @RequestMapping("/api/products")
 public class ProductController {
 
-    @Value("/home/nguyenhuugiang19072004/IdeaProjects/ShopeeFood/src/main/resources/static/img")
+    @Value("${folder_upload}")
 
     private String fileUpload;
     @Autowired

@@ -3,6 +3,7 @@ package com.example.shopeefood.controller;
 import com.example.shopeefood.model.*;
 import com.example.shopeefood.service.category.ICategoryService;
 import com.example.shopeefood.service.city.ICityService;
+import com.example.shopeefood.service.menu.IMenuService;
 import com.example.shopeefood.service.shop.IShopService;
 import com.example.shopeefood.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 @RestController
@@ -28,6 +31,8 @@ public class ShopController {
     @Autowired
     private IShopService iShopService;
     @Autowired
+    private IMenuService iMenuService;
+    @Autowired
     private IUserService iUserService;
     @Autowired
     private ICityService iCityService;
@@ -35,7 +40,7 @@ public class ShopController {
     private ICategoryService iCategoryService;
 
 //    @Value("E:/java/ShopeeFood/src/main/resources/static/img/")
-    @Value("/home/nguyenhuugiang19072004/IdeaProjects/ShopeeFood/src/main/resources/static/img/")
+    @Value("${folder_upload}")
     private String fileUpload;
     public MultipartFile multipartFile;
 
@@ -144,6 +149,17 @@ public class ShopController {
             );
             return new ResponseEntity<>(iShopService.save(shop), HttpStatus.CREATED);
         }
+    }
+    @GetMapping("/menu/{idShop}")
+    public ResponseEntity<List<Product>> getAllMenuByIdShop(@PathVariable Long idShop) {
+        Optional<Shop> shop = iShopService.findById(idShop);
+        List<Menu> menus = (List<Menu>) iMenuService.findAllByIdShop(shop.get());
+        List<Product> products = new ArrayList<>();
+        for (Menu menu : menus) {
+            products = menu.getProducts();
+            System.out.printf(products.toString());
+        }
+            return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
 }

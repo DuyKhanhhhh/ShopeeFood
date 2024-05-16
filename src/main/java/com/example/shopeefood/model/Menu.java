@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,7 +23,7 @@ public class Menu {
 
     @ManyToMany(mappedBy = "menus")
     @JsonIgnore
-    private Set<Product> products;
+    private List<Product> products;
     @JoinColumn(name = "shop_id")
     @ManyToOne
     private Shop idShop;
@@ -50,11 +51,11 @@ public class Menu {
         this.name = name;
     }
 
-    public Set<Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(Set<Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 
@@ -85,7 +86,7 @@ public class Menu {
     public Menu() {
     }
 
-    public Menu(long id, String name, Set<Product> products, Shop idShop, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Menu(long id, String name, List<Product> products, Shop idShop, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.products = products;

@@ -1,6 +1,7 @@
 package com.example.shopeefood.service.menu;
 
 import com.example.shopeefood.model.Menu;
+import com.example.shopeefood.model.Shop;
 import com.example.shopeefood.repository.IMenuRepository;
 import com.example.shopeefood.service.menu.IMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,10 @@ public class MenuService implements IMenuService {
     @Override
     public Optional<Menu>  findById(Long id) {
         return iMenuRepository.findById(id);
+    }
+
+    @Override
+    public Iterable<Menu> findAllByIdShop(Shop shop) {
+        return iMenuRepository.findAllByIdShop(shop);
     }
 }
