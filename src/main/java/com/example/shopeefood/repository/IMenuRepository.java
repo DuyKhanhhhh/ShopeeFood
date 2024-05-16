@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface IMenuRepository extends JpaRepository<Menu,Long> {
     @Query("SELECT m FROM Menu m WHERE m.idShop.id = :shopId")
-    List<Menu> findFoodByIdShop(@Param("shopId") Long shopId);
+    List<Menu> findMenuByIdShop(@Param("shopId") Long shopId);
 }

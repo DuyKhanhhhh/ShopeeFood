@@ -36,7 +36,7 @@ public class ShopController {
     @Autowired
     private ICategoryService iCategoryService;
 //    @Value("E:/java/ShopeeFood/src/main/resources/static/img/")
-    @Value("C:\\Users\\acer\\Desktop\\ShopeeFoodTemplate\\public\\img\\")
+    @Value("/home/dang/cloneCode/src/main/resources/static/img/")
     private String fileUpload;
     public MultipartFile multipartFile;
 

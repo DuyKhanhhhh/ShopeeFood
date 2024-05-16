@@ -22,7 +22,7 @@ public class MenuController {
     private IMenuService iMenuService;
     @GetMapping("{id}")
     public ResponseEntity<List<Menu>> findAll(@PathVariable Long id) {
-        return new ResponseEntity<>(menuRepo.findFoodByIdShop(id), HttpStatus.OK);
+        return new ResponseEntity<>(menuRepo.findMenuByIdShop(id), HttpStatus.OK);
     }
     @GetMapping()
     public ResponseEntity<List<Menu>> getAllMenus() {

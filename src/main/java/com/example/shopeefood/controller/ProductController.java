@@ -25,7 +25,8 @@ import java.util.Set;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-    @Value("C:\\Users\\acer\\Desktop\\ShopeeFoodTemplate\\public\\img\\")
+    @Value("/home/dang/cloneCode/src/main/resources/static/img/")
+
     private String fileUpload;
     @Autowired
     private IProductService iProductService;
@@ -33,46 +34,47 @@ public class ProductController {
     private IMenuService iMenuService;
     @Autowired
     IProductRepository productRepository;
-    @GetMapping("/ProductListByMenuId/{id}")
-    public ResponseEntity<List<Product>> getListProduct(@PathVariable Long id) {
-        List<Product> list=productRepository.findFoodByMenuId(id);
-        return new ResponseEntity<>(list, HttpStatus.OK);
-    }
     @GetMapping("/FindByPByName/{id}")
     public ResponseEntity<List<Product>> findByPName(@PathVariable Long id,@RequestParam("productName") String productName) {
         List<Product>list=productRepository.findFoodByMenuIdAndName(id, productName);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
-
-    @PostMapping()
-    public ResponseEntity<Product> saveProduct(@ModelAttribute ProductFile productFile) throws IOException {
-        MultipartFile multipartFile = productFile.getImage();
-        String fileName = multipartFile.getOriginalFilename();
-        try {
-            FileCopyUtils.copy(productFile.getImage().getBytes(), new File(fileUpload + fileName));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        LocalDateTime localDateTime = LocalDateTime.now();
-
-        Product product = new Product(
-                productFile.getId(),
-                productFile.getName(),
-                productFile.getPrice(),
-                productFile.getQuantity(),
-                fileName,
-                productFile.getDetail(),
-                productFile.getMenus(),
-                localDateTime,
-                localDateTime);
-        Optional<Menu> menu = iMenuService.findById(product.getMenus().stream().count());
-            product = iProductService.save(product);
-            Set<Menu> menuSet = new HashSet<>();
-            menuSet.add(menu.get());
-            product.setMenus(menuSet);
-            return new ResponseEntity<>(product, HttpStatus.CREATED) ;
-
-
+    @GetMapping("/ProductListByMenuId/{id}")
+    public ResponseEntity<List<Product>> getListProduct(@PathVariable Long id) {
+        List<Product> list=productRepository.findFoodByMenuId(id);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+
+    @PostMapping()
+    public ResponseEntity<Product> saveProduct(@ModelAttribute ProductFile productFile) {
+        try {
+
+            MultipartFile multipartFile = productFile.getImage();
+            String fileName = multipartFile.getOriginalFilename();
+            FileCopyUtils.copy(productFile.getImage().getBytes(), new File(fileUpload + fileName));
+
+            LocalDateTime localDateTime = LocalDateTime.now();
+
+            Product product = new Product(
+                    productFile.getId(),
+                    productFile.getName(),
+                    productFile.getPrice(),
+                    productFile.getQuantity(),
+                    fileName,
+                    productFile.getDetail(),
+                    productFile.getMenus(),
+                    localDateTime,
+                    localDateTime);
+            product = iProductService.save(product);
+            Set<Menu> menuSet = new HashSet<>();
+            product.setMenus(menuSet);
+            return new ResponseEntity<>(product, HttpStatus.CREATED);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.CREATED) ;
+
+        }
+
+    }
 }
