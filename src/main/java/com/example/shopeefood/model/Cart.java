@@ -23,9 +23,6 @@ public class Cart {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User idUser;
-    @ManyToOne
-    @JoinColumn(name = "shop_id")
-    private Shop idShop;
     private int quantity;
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
