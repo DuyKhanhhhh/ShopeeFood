@@ -1,8 +1,6 @@
 package com.example.shopeefood.controller;
 
 import com.example.shopeefood.model.*;
-
-
 import com.example.shopeefood.service.category.ICategoryService;
 import com.example.shopeefood.service.city.ICityService;
 import com.example.shopeefood.service.shop.IShopService;
@@ -35,15 +33,18 @@ public class ShopController {
     private ICityService iCityService;
     @Autowired
     private ICategoryService iCategoryService;
+
 //    @Value("E:/java/ShopeeFood/src/main/resources/static/img/")
-    @Value("C:\\Users\\acer\\Desktop\\ShopeeFoodTemplate\\public\\img\\")
+    @Value("/home/nguyenhuugiang19072004/IdeaProjects/ShopeeFood/src/main/resources/static/img/")
     private String fileUpload;
     public MultipartFile multipartFile;
+
 
     @ExceptionHandler({Exception.class})
     public ResponseEntity<String> handleException(Exception e){
         return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
     @GetMapping
     public ResponseEntity<List<Shop>> getAllShops(){
         List<Shop> shops = (List<Shop>) iShopService.findAll();
@@ -143,8 +144,11 @@ public class ShopController {
             );
             return new ResponseEntity<>(iShopService.save(shop), HttpStatus.CREATED);
         }
-
-
     }
 
 }
+
+
+
+
+
