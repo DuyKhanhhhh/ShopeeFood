@@ -35,7 +35,9 @@ public class ShopController {
     private ICategoryService iCategoryService;
 
 //    @Value("E:/java/ShopeeFood/src/main/resources/static/img/")
-    @Value("/home/nguyenhuugiang19072004/IdeaProjects/ShopeeFood/src/main/resources/static/img/")
+
+    @Value("/home/dang/cloneCode/src/main/resources/static/img/")
+
     private String fileUpload;
     public MultipartFile multipartFile;
 
