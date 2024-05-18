@@ -28,8 +28,6 @@ import java.util.Set;
 @RequestMapping("/api/products")
 public class ProductController {
     @Value("/home/dang/cloneCode/src/main/resources/static/img/")
-
-
     private String fileUpload;
     @Autowired
     private IProductService iProductService;

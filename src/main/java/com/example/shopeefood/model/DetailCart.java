@@ -1,4 +1,5 @@
 package com.example.shopeefood.model;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,17 +10,25 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "cart")
-@EntityListeners(AuditingEntityListener.class)
+@Table(name = "detailCart")
 @Getter
 @Setter
-public class Cart {
+@EntityListeners(AuditingEntityListener.class)
+public class DetailCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User idUser;
+    @JoinColumn(name = "product_id")
+    @ManyToOne()
+    private Product product;
+    private int quantity;
+    @JoinColumn(name = "shop_id")
+    @ManyToOne()
+    private Shop shop;
+    @JoinColumn(name = "cart_id")
+    @ManyToOne()
+    private Cart cart;
+
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -28,11 +37,14 @@ public class Cart {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    public Cart(long id, User idUser) {
-        this.id = id;
-        this.idUser = idUser;
+    public DetailCart() {
     }
 
-    public Cart() {
+    public DetailCart(long id, Product product, int quantity, Shop shop, Cart cart) {
+        this.id = id;
+        this.product = product;
+        this.quantity = quantity;
+        this.shop = shop;
+        this.cart = cart;
     }
 }
