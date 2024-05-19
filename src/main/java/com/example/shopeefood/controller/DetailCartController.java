@@ -1,9 +1,9 @@
 package com.example.shopeefood.controller;
 
-import com.example.shopeefood.model.DetailCart;
-import com.example.shopeefood.model.Shop;
-import com.example.shopeefood.model.User;
+import com.example.shopeefood.model.*;
+import com.example.shopeefood.service.cart.ICartService;
 import com.example.shopeefood.service.detailcart.IDetailCartService;
+import com.example.shopeefood.service.product.IProductService;
 import com.example.shopeefood.service.shop.IShopService;
 import com.example.shopeefood.service.user.IUserService;
 import jakarta.persistence.Id;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/detailCart/{idShop}/{idUser}")
+@RequestMapping("/api/detailCart")
 public class DetailCartController {
     @Autowired
     private IDetailCartService iDetailCartService;
@@ -24,7 +24,11 @@ public class DetailCartController {
     private IShopService iShopService;
     @Autowired
     private IUserService iUserService;
-    @GetMapping
+    @Autowired
+    private ICartService iCartService;
+    @Autowired
+    private IProductService iProductService;
+    @GetMapping("/{idShop}/{idUser}")
     public ResponseEntity<List<DetailCart>> getDetailCart(@PathVariable Long idShop, @PathVariable Long idUser) {
         Optional<User> user = iUserService.findById(idUser);
         Optional<Shop> shop = iShopService.findById(idShop);
@@ -34,5 +38,14 @@ public class DetailCartController {
         }else {
             return new ResponseEntity<>(detailCarts, HttpStatus.OK);
         }
+    }
+    @PostMapping("/{idUser}/{idShop}/{idProduct}")
+    public ResponseEntity<DetailCart> saveDetailCart(@PathVariable long idShop, @PathVariable long idUser, @PathVariable Long idProduct) {
+        Optional<Shop> shop = iShopService.findById(idShop);
+        Optional<Product> product = iProductService.findById(idProduct);
+        Optional<Cart> cart = iCartService.findById(idUser);
+        DetailCart detailCart = new DetailCart(product.get(),1,shop.get(),cart.get());
+        iDetailCartService.save(detailCart);
+        return new ResponseEntity<>(detailCart, HttpStatus.CREATED);
     }
 }

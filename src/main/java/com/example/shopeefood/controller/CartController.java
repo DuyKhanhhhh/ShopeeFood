@@ -28,10 +28,10 @@ public class CartController {
             return new ResponseEntity<>(cartList, HttpStatus.OK);
         }
     }
-    @PostMapping
-    public ResponseEntity<Cart> addCart(@RequestBody Cart cart) {
-        return new ResponseEntity<>(iCartService.save(cart), HttpStatus.CREATED);
-    }
+//    @PostMapping
+//    public ResponseEntity<Cart> addCart(@RequestBody Cart cart) {
+//        return new ResponseEntity<>(iCartService.save(cart), HttpStatus.CREATED);
+//    }
     @GetMapping("/{idUser}")
     public ResponseEntity<List<Cart>> findCartByIdUser(@PathVariable long idUser) {
         Optional<User> user = iUserService.findById(idUser);

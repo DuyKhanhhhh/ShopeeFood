@@ -40,8 +40,7 @@ public class DetailCart {
     public DetailCart() {
     }
 
-    public DetailCart(long id, Product product, int quantity, Shop shop, Cart cart) {
-        this.id = id;
+    public DetailCart(Product product, int quantity, Shop shop, Cart cart) {
         this.product = product;
         this.quantity = quantity;
         this.shop = shop;

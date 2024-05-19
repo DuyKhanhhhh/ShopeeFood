@@ -18,7 +18,7 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User idUser;
     @CreatedDate

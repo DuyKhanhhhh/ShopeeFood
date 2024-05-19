@@ -3,6 +3,7 @@ package com.example.shopeefood.controller;
 import com.example.shopeefood.model.Menu;
 import com.example.shopeefood.model.Product;
 import com.example.shopeefood.model.Shop;
+import com.example.shopeefood.repository.IMenuRepository;
 import com.example.shopeefood.service.menu.IMenuService;
 import com.example.shopeefood.service.shop.IShopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,14 @@ import java.util.Optional;
 import java.util.Set;
 
 @Controller
-@RequestMapping("menus")
+@RequestMapping("/api/menus")
 public class MenuController {
     @Autowired
     private IMenuService iMenuService;
     @Autowired
     private IShopService iShopService;
+    @Autowired
+    private IMenuRepository iMenuRepository;
     @GetMapping()
     public ResponseEntity<List<Menu>> getAllMenus() {
         List<Menu> menus = (List<Menu>) iMenuService.findAll();
@@ -32,5 +35,8 @@ public class MenuController {
         }
         return new ResponseEntity<>(menus, HttpStatus.OK);
     }
-
+    @GetMapping("{id}")
+    public ResponseEntity<List<Menu>> findAll(@PathVariable Long id) {
+        return new ResponseEntity<>(iMenuRepository.findMenuByIdShop(id), HttpStatus.OK);
+    }
 }
