@@ -2,9 +2,9 @@ package com.example.shopeefood.model;
 
 import jakarta.persistence.*;
 
+
 @Entity
 @Table(name = "users")
-@EntityListeners(AuditingEntityListener.class)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -98,4 +98,3 @@ public class User {
     public User() {
     }
 }
-
