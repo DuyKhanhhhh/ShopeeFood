@@ -27,6 +27,7 @@ public class MenuService implements IMenuService {
     @Override
     public void remove(Long id) {
 
+        iMenuRepository.deleteById(id);
     }
 
 
