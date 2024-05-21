@@ -1,7 +1,9 @@
+
 package com.example.shopeefood.controller;
 
 import com.example.shopeefood.model.*;
 import com.example.shopeefood.repository.IDetailCartRepository;
+import com.example.shopeefood.repository.IUserRepository;
 import com.example.shopeefood.service.cart.ICartService;
 import com.example.shopeefood.service.detailcart.IDetailCartService;
 import com.example.shopeefood.service.product.IProductService;
@@ -31,6 +33,7 @@ public class DetailCartController {
     private IProductService iProductService;
     @Autowired
     private IDetailCartRepository idetailCartRepository;
+
     @GetMapping("/{idShop}/{idUser}")
     public ResponseEntity<List<DetailCart>> getDetailCart(@PathVariable Long idShop, @PathVariable Long idUser) {
         Optional<User> user = iUserService.findById(idUser);
@@ -49,16 +52,23 @@ public class DetailCartController {
         Optional<Cart> cart = iCartService.findById(idUser);
         LocalDateTime currentDateTime = LocalDateTime.now();
         cart.get().setCreatedAt(currentDateTime);
-        DetailCart detailCart = new DetailCart(product.get(),1,shop.get(),cart.get());
-        iDetailCartService.save(detailCart);
-        return new ResponseEntity<>(detailCart, HttpStatus.CREATED);
+        DetailCart detailCart = iDetailCartService.findDetailCartByProduct(product.get());
+        if (detailCart == null){
+            DetailCart newDetailCart = new DetailCart(product.get(),1,shop.get(),cart.get());
+            iDetailCartService.save(newDetailCart);
+            return new ResponseEntity<>(newDetailCart, HttpStatus.CREATED);
+        }else {
+            int quantity = detailCart.getQuantity();
+            detailCart.setQuantity(quantity + 1);
+            return new ResponseEntity<>(iDetailCartService.save(detailCart), HttpStatus.OK);
+        }
     }
     @PutMapping("/plus/{id}")
     public ResponseEntity<DetailCart> plusCart(@PathVariable Long id) {
         Optional<DetailCart>  detailCart=  idetailCartRepository.findById(id);
-      int number=detailCart.get().getQuantity()+1;
-      detailCart.get().setQuantity(number);
-      return new ResponseEntity<>(iDetailCartService.save(detailCart.get()), HttpStatus.OK);
+        int number=detailCart.get().getQuantity()+1;
+        detailCart.get().setQuantity(number);
+        return new ResponseEntity<>(iDetailCartService.save(detailCart.get()), HttpStatus.OK);
     }
     @PutMapping("/minus/{id}")
     public ResponseEntity<Void> minusCart(@PathVariable Long id) {

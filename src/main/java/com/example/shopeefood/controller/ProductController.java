@@ -66,7 +66,6 @@ public class ProductController {
         LocalDateTime localDateTime = LocalDateTime.now();
 
 
-            LocalDateTime localDateTime = LocalDateTime.now();
 
             Product product = new Product(
                     productFile.getId(),
@@ -81,7 +80,6 @@ public class ProductController {
             product = iProductService.save(product);
             Set<Menu> menuSet = new HashSet<>();
 
-           menuSet.add(menu.get());
             product.setMenus(menuSet);
         return new ResponseEntity<>(product, HttpStatus.CREATED);
         } catch (Exception ex) {

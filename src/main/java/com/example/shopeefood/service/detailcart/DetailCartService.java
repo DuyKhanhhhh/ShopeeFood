@@ -1,6 +1,7 @@
 package com.example.shopeefood.service.detailcart;
 
 import com.example.shopeefood.model.DetailCart;
+import com.example.shopeefood.model.Product;
 import com.example.shopeefood.model.Shop;
 import com.example.shopeefood.model.User;
 import com.example.shopeefood.repository.IDetailCartRepository;
@@ -36,5 +37,10 @@ public class DetailCartService implements IDetailCartService {
     @Override
     public Iterable<DetailCart> findAllByShopAndCart(Shop shop, User user) {
         return iDetailCartRepository.findAllByShopAndCart(shop,user);
+    }
+
+    @Override
+    public DetailCart findDetailCartByProduct(Product product) {
+        return iDetailCartRepository.findDetailCartByProduct(product);
     }
 }
