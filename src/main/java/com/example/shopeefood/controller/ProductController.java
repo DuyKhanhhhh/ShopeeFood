@@ -8,6 +8,9 @@ import com.example.shopeefood.service.menu.IMenuService;
 import com.example.shopeefood.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
@@ -44,7 +47,13 @@ public class ProductController {
         List<Product> list=productRepository.findFoodByMenuId(id);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
-
+    @GetMapping("/FindByPByNameAndPage/{id}")
+    public ResponseEntity<Page<Product>> findByPNameAndPage(@PathVariable Long id,
+                                                            @RequestParam( name = ("productName"),  required = false) String productName,
+                                                            @PageableDefault(value = 3) Pageable pageable) {
+        Page<Product>list=productRepository.findFoodByMenuIdAndNameAndPage(id, productName,pageable);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 
     @PostMapping()
     public ResponseEntity<Product> saveProduct(@ModelAttribute ProductFile productFile) {
