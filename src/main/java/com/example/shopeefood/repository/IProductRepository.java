@@ -19,6 +19,10 @@ public interface IProductRepository extends JpaRepository<Product,Long> {
     @Query("SELECT f FROM Product f JOIN f.menus m WHERE m.id = :menuId")
     List<Product> findFoodByMenuId(@Param("menuId") Long menuId);
 
+    @Query("SELECT p FROM Product p JOIN p.menus m WHERE m.id = :menuId AND p.name LIKE %:productName%")
+    Page<Product> findFoodByMenuIdAndNameAndPage(@Param("menuId") Long menuId, @Param("productName") String productName, Pageable pageable);
 
-    Page<Product> findAllByNameContaining(Pageable pageable, String name);
-}
+
+
+    
+
