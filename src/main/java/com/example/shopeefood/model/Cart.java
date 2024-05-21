@@ -20,6 +20,7 @@ public class Cart {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User idUser;
+    private int quantity;
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

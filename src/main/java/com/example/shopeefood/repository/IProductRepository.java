@@ -12,6 +12,7 @@ import java.util.List;
 
 @Repository
 public interface IProductRepository extends JpaRepository<Product,Long> {
+
     @Query("SELECT p FROM Product p JOIN p.menus m WHERE m.id = :menuId AND p.name LIKE %:productName%")
     List<Product> findFoodByMenuIdAndName(@Param("menuId") Long menuId, @Param("productName") String productName);
 
@@ -21,4 +22,7 @@ public interface IProductRepository extends JpaRepository<Product,Long> {
     @Query("SELECT p FROM Product p JOIN p.menus m WHERE m.id = :menuId AND p.name LIKE %:productName%")
     Page<Product> findFoodByMenuIdAndNameAndPage(@Param("menuId") Long menuId, @Param("productName") String productName, Pageable pageable);
 
-}
+
+
+    
+

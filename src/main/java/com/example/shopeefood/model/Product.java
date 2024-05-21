@@ -1,6 +1,7 @@
 package com.example.shopeefood.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -28,7 +29,6 @@ public class Product {
             joinColumns=@JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "menu_id"))
     private Set<Menu> menus = new HashSet<>();
-
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -124,3 +124,4 @@ public class Product {
         this.updatedAt = updatedAt;
     }
 }
+

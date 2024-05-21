@@ -7,3 +7,4 @@ import com.example.shopeefood.service.IGenerateService;
 public interface ICartService extends IGenerateService<Cart> {
     Iterable<Cart> findCartByIdUser(User idUser);
 }
+
