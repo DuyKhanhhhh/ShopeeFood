@@ -33,10 +33,7 @@ public class OrderServicer implements IOrderItemService {
         return iOrderItemRepository.findById(id);
     }
 
-    @Override
-    public Iterable<OrderItem> findAllByShopAndCart(Shop shop, User user) {
-        return iOrderItemRepository.findAllByShopAndCart(shop,user);
-    }
+
 
     @Override
     public OrderItem findOrderItemByProduct(Product product) {

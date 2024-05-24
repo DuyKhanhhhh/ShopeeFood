@@ -1,14 +1,18 @@
 package com.example.shopeefood.repository;
 
 import com.example.shopeefood.model.*;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
+@Transactional
 public interface IOrderItemRepository extends JpaRepository<OrderItem,Long> {
-    @Query("SELECT d FROM OrderItem d join Cart c ON d.cart.id = c.id WHERE d.shop = ?1 AND c.idUser = ?2 ")
-    Iterable<OrderItem> findAllByShopAndCart(Shop shop, User user);
+    List<OrderItem> findByShopId(Long shopId);
+
     OrderItem findOrderItemByProduct(Product product);
 
 }

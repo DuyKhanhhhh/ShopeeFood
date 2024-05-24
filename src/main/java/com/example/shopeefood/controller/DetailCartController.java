@@ -61,7 +61,7 @@ public class DetailCartController {
             DetailCart newDetailCart = new DetailCart(product.get(), 1, shop.get(), cart.get());
             newDetailCart = iDetailCartService.save(newDetailCart);
             Long id =newDetailCart.getId();
-            OrderItem orderItem = new OrderItem(id, product.get(), 1, shop.get(), cart.get());
+            OrderItem orderItem = new OrderItem(id, product.get(), 1, shop.get());
             iOrderItemService.save(orderItem);
             return new ResponseEntity<>(newDetailCart, HttpStatus.CREATED);
         } else {
@@ -72,8 +72,7 @@ public class DetailCartController {
                 OrderItem updatedOrderItem = new OrderItem(detailCart.getId(),
                         detailCart.getProduct(),
                         detailCart.getQuantity(),
-                        detailCart.getShop(),
-                        detailCart.getCart());
+                        detailCart.getShop());
                 iOrderItemService.save(updatedOrderItem);
             }
             return new ResponseEntity<>(detailCart, HttpStatus.OK);

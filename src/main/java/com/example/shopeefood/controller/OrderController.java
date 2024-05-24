@@ -2,6 +2,7 @@ package com.example.shopeefood.controller;
 
 import com.example.shopeefood.model.*;
 import com.example.shopeefood.repository.IDetailCartRepository;
+import com.example.shopeefood.repository.IOrderItemRepository;
 import com.example.shopeefood.repository.IOrderRepository;
 import com.example.shopeefood.service.detailcart.IDetailCartService;
 import com.example.shopeefood.service.orderItem.IOrderItemService;
@@ -10,10 +11,7 @@ import com.example.shopeefood.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,9 +28,16 @@ public class OrderController {
     @Autowired
     private IOrderRepository iOrderRepository;
     @Autowired
+    private IOrderItemRepository iOrderItemRepository;
+    @Autowired
     private IDetailCartService iDetailCartService;
+    @GetMapping("/orders/{userId}")
+    public ResponseEntity<List<Order>> getOrdersByUserId(@PathVariable Long userId) {
+         List<Order> orders = iOrderRepository.findByUserId(userId);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
 
-    @PostMapping("/{idUser}/{idShop}")
+        @PostMapping("/{idUser}/{idShop}")
     public ResponseEntity<Order> createOrder(@PathVariable long idShop, @PathVariable long idUser) {
 
         Optional<User> userOptional = iUserService.findById(idUser);
@@ -44,11 +49,9 @@ public class OrderController {
         User user = userOptional.get();
         Shop shop = shopOptional.get();
 
-        List<OrderItem> orderItems = (List<OrderItem>) iOrderItemService.findAllByShopAndCart(shop, user);
-        if (orderItems.isEmpty()) {
-            return ResponseEntity.badRequest().build();
-        }
+        List<OrderItem> orderItems =  iOrderItemRepository.findByShopId(shop.getId());
         Order order = new Order();
+        order.setUser(user); ;
         for (OrderItem item : orderItems) {
             if(item.getOrder()==null){
                 order.addOrderItem(item);
@@ -60,4 +63,5 @@ public class OrderController {
         }
         return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
     }
+
 }

@@ -31,7 +31,10 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private List<OrderItem> orderItems = new ArrayList<>();
-
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.setOrder(this);

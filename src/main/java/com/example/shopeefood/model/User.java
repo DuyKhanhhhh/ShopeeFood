@@ -1,7 +1,10 @@
 package com.example.shopeefood.model;
 
 import jakarta.persistence.*;
+import lombok.ToString;
 
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -15,10 +18,14 @@ public class User {
     private String phoneNumber;
     private String image;
     private boolean status;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role idRole;
 
+
+
+    // Getters and setters
 
     public long getId() {
         return id;
@@ -84,6 +91,8 @@ public class User {
         this.idRole = idRole;
     }
 
+
+
     public User(long id, String name, String email, String password, String phoneNumber, String image, boolean status, Role idRole) {
         this.id = id;
         this.name = name;
@@ -93,8 +102,11 @@ public class User {
         this.image = image;
         this.status = status;
         this.idRole = idRole;
+
     }
 
     public User() {
     }
+
+
 }
