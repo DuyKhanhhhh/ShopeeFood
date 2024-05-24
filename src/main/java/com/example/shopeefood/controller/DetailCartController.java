@@ -92,7 +92,7 @@ public class DetailCartController {
         } else {
             detailCart.setQuantity(number);
             iDetailCartService.save(detailCart);
-            iOrderItemService.save(orderItem);
+          iOrderItemService.save(orderItem);
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
