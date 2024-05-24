@@ -90,6 +90,7 @@ public class DetailCartController {
             iOrderItemService.remove(orderItem.getId());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
+
             detailCart.setQuantity(number);
             iDetailCartService.save(detailCart);
           iOrderItemService.save(orderItem);
