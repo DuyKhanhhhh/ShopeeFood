@@ -13,6 +13,7 @@ public class User {
     private String email;
     private String password;
     private String phoneNumber;
+    private String address;
     private String image;
     private boolean status;
     @ManyToOne
@@ -84,12 +85,21 @@ public class User {
         this.idRole = idRole;
     }
 
-    public User(long id, String name, String email, String password, String phoneNumber, String image, boolean status, Role idRole) {
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public User(long id, String name, String email, String password, String phoneNumber, String address, String image, boolean status, Role idRole) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
+        this.address = address;
         this.image = image;
         this.status = status;
         this.idRole = idRole;

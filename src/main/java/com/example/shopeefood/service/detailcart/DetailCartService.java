@@ -1,8 +1,6 @@
 package com.example.shopeefood.service.detailcart;
 
-import com.example.shopeefood.model.DetailCart;
-import com.example.shopeefood.model.Shop;
-import com.example.shopeefood.model.User;
+import com.example.shopeefood.model.*;
 import com.example.shopeefood.repository.IDetailCartRepository;
 import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +34,10 @@ public class DetailCartService implements IDetailCartService {
     @Override
     public Iterable<DetailCart> findAllByShopAndCart(Shop shop, User user) {
         return iDetailCartRepository.findAllByShopAndCart(shop,user);
+    }
+
+    @Override
+    public DetailCart findDetailCartByProductAndCart(Product product, Cart cart) {
+        return iDetailCartRepository.findDetailCartByProductAndCart(product,cart);
     }
 }
